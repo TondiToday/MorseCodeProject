@@ -1,7 +1,17 @@
+#ifndef TREE_H
+#define TREE_H
+
+
+
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <queue>
+
+
+
 
 using namespace std;
 
@@ -21,24 +31,8 @@ public:
 	tree();
 
 	node* get_root();
-	void creatLeaf(string letter, string symbol, node *ptr);
+	void createLeaf(string letter, string symbol, node *ptr);
 };
-node * tree::get_root()
-{
-	return root;
-}
-tree::tree()
-{
-	root = new node;
-	root->letter = " ";
-	root->symbol = " ";
-	root->left = NULL;
-	root->right = NULL;
-}
-void tree::creatLeaf(string let, string sy, node *ptr)
-{
-	ptr->symbol = sy;
-	ptr->letter = let;
-	ptr->left = NULL;
-	ptr->right = NULL;
-}
+
+
+#endif

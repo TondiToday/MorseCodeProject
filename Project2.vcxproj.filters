@@ -21,6 +21,9 @@
     <ClCompile Include="Functions.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt">

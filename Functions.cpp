@@ -5,9 +5,7 @@
 
 void input_fromfile(queue <string> &q)
 {
-
 	string in;
-
 	ifstream fin("input.txt"); // object to input from the file
 
 	while (fin.good())
@@ -22,10 +20,10 @@ void input_fromfile(queue <string> &q)
 			q.push(in);
 		}
 	}
-
+	fin.close();
 }
 
-void load_tree(tree & m)
+void build_tree(tree & m)
 {
 	queue <string> q;// to store the data from the file
 	input_fromfile(q);
@@ -38,11 +36,11 @@ void load_tree(tree & m)
 		x = q.front();
 		nptr.front()->left = new node;
 		nptr.front()->right = new node;
-		m.creatLeaf(x.substr(0, 1), x.substr(1, x.length()), nptr.front()->left);
+		m.createLeaf(x.substr(0, 1), x.substr(1, x.length()), nptr.front()->left);
 		nptr.push(nptr.front()->left);
 		q.pop();
 		x = q.front();
-		m.creatLeaf(x.substr(0, 1), x.substr(1, x.length()), nptr.front()->right);
+		m.createLeaf(x.substr(0, 1), x.substr(1, x.length()), nptr.front()->right);
 		nptr.push(nptr.front()->right);
 		q.pop();
 		nptr.pop();
@@ -50,30 +48,30 @@ void load_tree(tree & m)
 }
 
 
-void build_map()
+void build_map(map<string, string>& m_map)
 {
-
 	string input;
 	ifstream fin("input.txt");
-	map<string, string> morseLookup;
-
+	
 	while (fin.good())
 	{
 		fin >> input;
-		morseLookup.insert(pair<string, string>(input.substr(0, 1), input.substr(1, input.length())));
+		m_map.insert(pair<string, string>(input.substr(0, 1), input.substr(1, input.length())));
 	}
+	fin.close();
 
 	// debug
-	print_map(morseLookup);
+	print_map(m_map);
 }
-
 
 
 void print_map(map<string, string>& m_map)
 {
-	for (map<string, string>::iterator iter = m_map.begin(); iter != m_map.end(); ++iter)
+	cout << "Morse Code Table" << endl;
+
+	for (map<string, string>::iterator iter = next(m_map.begin(),1); iter != m_map.end(); ++iter)
 	{
-		cout << "Key: " << iter->first << ", Entry: " << iter->second << endl;
+		cout << iter->first << " = " << iter->second << endl;
 	}
 }
 
@@ -99,8 +97,9 @@ void find_letter(node *n, string x, queue <string> & letter_q)
 	}
 }
 
+/*
 void find_symbol(node *n, string x, queue <string> &symbol_q)
-/*Traverse the tree pre order to find the symbol and store the corresponding letter to a queue*/
+/Traverse the tree pre order to find the symbol and store the corresponding letter to a queue
 {
 	if (n == NULL)
 	{
@@ -120,19 +119,23 @@ void find_symbol(node *n, string x, queue <string> &symbol_q)
 		find_symbol(n->right, x, symbol_q);
 	}
 }
+*/
 
-void encode(tree m, string x)
-
+void encode(map<string, string> m_map, string word)
 {
-	queue <string> symbol_q;
-	int i = 0;
+	string encoded = "";
 
-	while (i < x.length())
+	for (int i = 0; i <= word.length(); i++)
 	{
-		find_symbol(m.get_root(), x.substr(i, 1), symbol_q);
-		i++;
+		for (map<string, string>::iterator iter = next(m_map.begin(), 1); iter != m_map.end(); ++iter)
+		{
+			if (iter->first == word.substr(i, 1))
+			{
+				encoded.append(iter->second);
+			}
+		}
 	}
-	print(symbol_q);
+	cout << encoded << endl;
 }
 
 void decode(tree m, string x)
@@ -153,24 +156,35 @@ void decode(tree m, string x)
 	print(letter_q);
 }
 
-void user_input(tree m)
+void user_input(tree m_tree, map<string, string> m_map)
 {
-	cout << "choose Encoding(1) or Decoding(2)" << endl;
-	string x;
-	getline(cin, x);
-	if (x == "1")
+	while (true)
 	{
-		cout << "please enter the word to be encoded" << endl;
-		string enc;
-		getline(cin, enc);
-		encode(m, enc);
-	}
-	if (x == "2")
-	{
-		cout << "Please enter the symbols to be decoded" << endl;
-		string decod;
-		getline(cin, decod);
-		decode(m, decod);
+		cout << "Choose Encoding(1) or Decoding(2)" << endl;
+		string x;
+		getline(cin, x);
+
+		if (x == "1")
+		{
+			build_map(m_map);
+			cout << "Please enter the word to be encoded:" << endl;
+			string to_encode;
+			getline(cin, to_encode);
+			encode(m_map, to_encode); // this function doesn't work right now
+		}
+		if (x == "2")
+		{
+			cout << "Please enter the Morse code to be decoded:" << endl;
+			string to_decode;
+			getline(cin, to_decode);
+			decode(m_tree, to_decode);
+		}
+
+		else
+		{
+			cout << "Invalid input" << endl;
+			continue;
+		}
 	}
 }
 

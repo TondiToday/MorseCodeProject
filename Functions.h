@@ -1,21 +1,25 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-
-
 #include "Tree.h"
 #include <map>
 
-void encode(tree m, string x);
+// Tree
+void build_tree(tree & m);
 void decode(tree m, string x);
-void find_symbol(node *n, string x, queue <string> &symbol_q);
 void find_letter(node *n, string x, queue <string> & letter_q);
-void load_tree(tree & m);
-void user_input(tree m);
+//void find_symbol(node *n, string x, queue <string> &symbol_q); 
 void print(queue<string> q);
 void input_fromfile(queue <string> &q);
-void build_map();
+
+void user_input(tree m_tree, map<string, string> m_map);
+
+// Map
+void build_map(map<string, string>& m_map);
 void print_map(map<string, string>& m_map);
+void encode(map<string, string> m_map, string x);
+
+
 
 
 
