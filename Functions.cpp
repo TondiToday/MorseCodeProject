@@ -1,13 +1,7 @@
-# include "Header.h"
+#include "Functions.h"
 
-void encode(tree m, string x);
-void decode(tree m, string x);
-void find_symbol(node *n, string x, queue <string> &symbol_q);
-void find_letter(node *n, string x, queue <string> & letter_q);
-void load_tree(tree & m);
-void user_input(tree m);
-void print(queue<string> q);
-void input_fromfile(queue <string> &q);
+
+
 
 void input_fromfile(queue <string> &q)
 {
@@ -54,6 +48,35 @@ void load_tree(tree & m)
 		nptr.pop();
 	}
 }
+
+
+void build_map()
+{
+
+	string input;
+	ifstream fin("input.txt");
+	map<string, string> morseLookup;
+
+	while (fin.good())
+	{
+		fin >> input;
+		morseLookup.insert(pair<string, string>(input.substr(0, 1), input.substr(1, input.length())));
+	}
+
+	// debug
+	print_map(morseLookup);
+}
+
+
+
+void print_map(map<string, string>& m_map)
+{
+	for (map<string, string>::iterator iter = m_map.begin(); iter != m_map.end(); ++iter)
+	{
+		cout << "Key: " << iter->first << ", Entry: " << iter->second << endl;
+	}
+}
+
 
 void find_letter(node *n, string x, queue <string> & letter_q)
 /*Traverse the tree in order to find the letter and store the corresponding code to a queue*/
@@ -117,15 +140,15 @@ void decode(tree m, string x)
 	queue <string> letter_q;
 	int i = 0;
 	int j = 0;
-	while ( i< x.length () || j <= x.length())
-	
+	while (i< x.length() || j <= x.length())
+
 	{
 		j = x.find_first_of(" ", i);
 
 		find_letter(m.get_root(), x.substr(i, j), letter_q);
-	
-		
-		i += (j+1);
+
+
+		i += (j + 1);
 	}
 	print(letter_q);
 }
