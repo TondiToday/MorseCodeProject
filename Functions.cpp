@@ -140,21 +140,53 @@ void encode(map<string, string> m_map, string word)
 
 void decode(tree m, string x)
 {
-	queue <string> letter_q;
+	node* p = m.get_root();
+	queue <node*> n_pt;
+	n_pt.push(p);
 	int i = 0;
-	int j = 0;
-	while (i< x.length() || j <= x.length())
-
+	while (i < x.length())
 	{
-		j = x.find_first_of(" ", i);
+		if (x.substr(i, 1) == ".")
+		{
+			n_pt.push(n_pt.front()->left);
+			n_pt.pop();
+			i++;
 
-		find_letter(m.get_root(), x.substr(i, j), letter_q);
+		}
+		if (x.substr(i, 1) == "_")
+		{
+			n_pt.push(n_pt.front()->right);
+			n_pt.pop();
+			i++;
+		}
+		if (x.substr(i, 1) == " ")
+		{
 
+			n_pt.push(p);
+			cout << n_pt.front()->letter;
+			n_pt.pop();
+			i++;
+		}
 
-		i += (j + 1);
 	}
-	print(letter_q);
+	cout << n_pt.front()->letter;
+
 }
+/*queue <string> letter_q;
+int i = 0;
+int j = 0;
+while ( i< x.length () || j <= x.length())
+
+{
+j = x.find_first_of(" ", i);
+
+find_letter(m.get_root(), x.substr(i, j), letter_q);
+
+
+i += (j+1);
+}
+print(letter_q);*/
+
 
 void user_input(tree m_tree, map<string, string> m_map)
 {
