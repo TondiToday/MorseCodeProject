@@ -79,7 +79,7 @@ void build_tree(tree& morseTree, queue<string> q)
 	for (int i = 0; i < size; i++)
 	{
 		string text = q.front();
-		morseTree.addLetter(text, root);
+		morseTree.add_letter(text, root); // creates node for letter
 		q.pop();
 	}
 	//printInorder(root);

@@ -22,8 +22,8 @@ public:
 	tree();
 
 	node* get_root(); // returns the root node
-	void addLetter(string line, node* start); // adds the letter from file and calls createNewNode to store it
-	node* createNewNode(node* newNode); // creates the node the store the letter and returns it
+	void add_letter(string line, node* start); // adds the letter from file and calls createNewNode to store it
+	node* create_new_node(node* newNode); // creates the node the store the letter and returns it
 };
 
 
