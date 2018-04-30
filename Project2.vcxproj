@@ -116,11 +116,11 @@
     <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Tree.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="morse.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

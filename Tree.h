@@ -1,16 +1,8 @@
 #ifndef TREE_H
 #define TREE_H
 
-
-
-
-
-#include <iostream>
-#include <fstream>
 #include <string>
 #include <queue>
-
-
 
 
 using namespace std;
@@ -18,7 +10,6 @@ using namespace std;
 struct node
 {
 	string letter;
-	string symbol;
 	node * left;
 	node * right;
 };
@@ -30,8 +21,9 @@ class tree
 public:
 	tree();
 
-	node* get_root();
-	void createLeaf(string letter, string symbol, node *ptr);
+	node* get_root(); // returns the root node
+	void addLetter(string line, node* start); // adds the letter from file and calls createNewNode to store it
+	node* createNewNode(node* newNode); // creates the node the store the letter and returns it
 };
 
 
