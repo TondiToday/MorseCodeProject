@@ -94,26 +94,45 @@ void decode(tree& m_tree, string x)
 	n_pt.push(p);
 
 	int i = 0;
+
 	while (i < x.length())
 	{
 		if (x[i] == '.')
+
 		{
-			n_pt.push(n_pt.front()->left);
-			n_pt.pop();
-			i++;
+			if (n_pt.front()->left == NULL)
+			{
+				cout << endl << "Error: Morse code does not translate to a letter" << endl;
+				goto finish;
+			}
+			else
+			{
+				n_pt.push(n_pt.front()->left);
+				n_pt.pop();
+				i++;
+			}
 		}
 		else if (x[i] == '_')
 		{
-			n_pt.push(n_pt.front()->right);
-			n_pt.pop();
-			i++;
+			if (n_pt.front()->right == NULL)
+			{
+				cout << endl << "Error: Morse code does not translate to a letter" << endl;
+	
+				goto finish;
+			}
+			else
+			{
+				n_pt.push(n_pt.front()->right);
+				n_pt.pop();
+				i++;
+			}
 		}
 		else if (x[i] == ' ')
 		{
-			n_pt.push(p);
-			cout << n_pt.front()->letter;
-			n_pt.pop();
-			i++;
+				n_pt.push(p);
+				cout << n_pt.front()->letter;
+				n_pt.pop();
+				i++;
 		}
 
 		else if (isalpha(x[i]))
@@ -125,11 +144,12 @@ void decode(tree& m_tree, string x)
 		else
 		{
 			cout << "Error: " << x[i] << " is not defined." << endl;
-			break;
+		break;
 		}
 
 	}
 	cout << n_pt.front()->letter << endl;
+finish:;
 }
 
 
