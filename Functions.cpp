@@ -103,6 +103,7 @@ void decode(tree& m_tree, string x)
 			if (n_pt.front()->left == NULL)
 			{
 				cout << endl << "Error: Morse code does not translate to a letter" << endl;
+				cout << endl;
 				goto finish;
 			}
 			else
@@ -117,7 +118,7 @@ void decode(tree& m_tree, string x)
 			if (n_pt.front()->right == NULL)
 			{
 				cout << endl << "Error: Morse code does not translate to a letter" << endl;
-	
+				cout << endl;
 				goto finish;
 			}
 			else
