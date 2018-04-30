@@ -16,7 +16,7 @@ tree::tree()
 }
 
 
-// adds the letter from file and calls createNewNode to store it
+// adds the letter from file and calls create_new_node to store it
 void tree::add_letter(string line, node* root)
 {
 	node* current = root;

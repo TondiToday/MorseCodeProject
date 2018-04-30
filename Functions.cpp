@@ -93,18 +93,20 @@ void decode(tree& m_tree, string x)
 	queue <node*> n_pt;
 	n_pt.push(p);
 
+	bool error = false; // used to check if Morse code was not found
+
 	int i = 0;
 
 	while (i < x.length())
 	{
 		if (x[i] == '.')
-
 		{
 			if (n_pt.front()->left == NULL)
 			{
 				cout << endl << "Error: Morse code does not translate to a letter" << endl;
 				cout << endl;
-				goto finish;
+				error = true;
+				break;
 			}
 			else
 			{
@@ -119,7 +121,8 @@ void decode(tree& m_tree, string x)
 			{
 				cout << endl << "Error: Morse code does not translate to a letter" << endl;
 				cout << endl;
-				goto finish;
+				error = true;
+				break;
 			}
 			else
 			{
@@ -139,18 +142,22 @@ void decode(tree& m_tree, string x)
 		else if (isalpha(x[i]))
 		{
 			cout << endl << "Error: '" << x[i] << "' is a letter, not Morse code." << endl;
+			error = true;
 			break;
 		}
 		
 		else
 		{
 			cout << "Error: " << x[i] << " is not defined." << endl;
-		break;
+			error = true;
+			break;
 		}
 
 	}
-	cout << n_pt.front()->letter << endl;
-finish:;
+	if (error == false) // output if no error is found, otherwise do not output
+	{
+		cout << n_pt.front()->letter << endl;
+	}
 }
 
 
